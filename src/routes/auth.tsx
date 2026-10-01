@@ -44,7 +44,7 @@ function AuthPage() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const parsed = schema.safeParse(Object.fromEntries(new FormData(e.currentTarget)));
-    if (!parsed.success) return toast.error(parsed.error.issues[0].message);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Greška"); return; }
     setLoading(true);
     if (mode === "login") {
       const { error } = await supabase.auth.signInWithPassword(parsed.data);

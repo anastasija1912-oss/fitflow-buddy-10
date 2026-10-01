@@ -26,7 +26,7 @@ function WorkoutDetail() {
   async function onDelete() {
     if (!confirm("Da li sigurno želiš da obrišeš ovaj trening?")) return;
     const { error } = await supabase.from("workouts").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     await qc.invalidateQueries({ queryKey: workoutsQueryKey });
     toast.success("Trening obrisan");
     navigate({ to: "/workouts" });
